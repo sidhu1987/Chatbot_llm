@@ -7,8 +7,13 @@ from langchain_groq import ChatGroq
 from langchain.embeddings import HuggingFaceEmbeddings  # ✅ Import for local embeddings
 
 # 🔐 Your OpenAI API Key
-OPENAI_API_KEY = "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"
+#OPENAI_API_KEY = "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"
+llm = ChatGroq(
+    model="llama-3.1-8b-instant",
+    groq_api_key='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',
+    temperature=0,
 
+)
 # Main title
 st.markdown("<h1 style='text-align: center; color: #4B8BBE;'>🤖 Q&A Chatbot</h1>", unsafe_allow_html=True)
 
@@ -47,13 +52,6 @@ if file is not None:
         # Search similar chunks
         match = vector_store.similarity_search(user_question)
 
-        # Set up Chat LLM (still using OpenAI for responses)
-        llm = (
-            openai_api_key=OPENAI_API_KEY,
-            temperature=0,
-            max_tokens=1000,
-            model_name="gpt-3.5-turbo"
-        )
 
         # Load QA chain
         chain = load_qa_chain(llm, chain_type="stuff")
